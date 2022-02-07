@@ -1,184 +1,204 @@
-MTEC1003 — LAB 02 (revised revised 2/7/21 —lg)
+MTEC1003 — LAB 02 (revised 8/9/20 —lg)
 
-LAB 2 / PART 2: Working With Files
+LAB 2 / PART 3: Shell Scripting, Permissions, Editing Text, Date and Time
 
 ==========
-Follow the instructions line-by-line.
+Follow the instructions line-by-line.  
 
-* Type in the commands as is, but ignore the beginning prompt.
-* Enter, tab, up and down are represented by <ENTER><TAB>,<UP> and <DOWN>.
+* Type in the commands as is, but ignore the beginning prompt.  
+* Enter, tab, up and down are represented by <ENTER><TAB>,<UP> and <DOWN>.  
 * "No output" or "nothing happens" are valid answers to any of the questions.
 ==========
 
-1a. Go to your home directory.
 
-Write the command that you used to do this below:
+==========
+We're going to be writing a shell script. First, though... let's figure out what day and time it is!
+==========
+
+==========
+1. What day and time is it?
+
+What command did you use, and what was its output?
 ----------
+
+date
+Mon Feb  7 16:19:16 EST 2022
+
+
+
+
+==========
+2. Print out a calendar for this month.
+
+What command did you use, and what was its output?
+----------
+
+
+cal
+
+I'm on Windows running GitBash inside VS Code and cal is not a command recognized in this setup. 
+
+==========
+3. Go to your home directory. 
+Then navigate to your mtec1003-lab-02 folder with a single command. 
+Finally, verify that you're in the right place.
+
+What 3 commands did you use to do this?
+----------
+
 cd ~
-
-
-==========
-1b. Prove that you're in your home directory.
-
-Write the command that you used to do this - as well as its output - below :
-----------
-
+cd mtec1003-lab-02/
 pwd
-/c/Users/Darks
-
 
 ==========
-1c. Create a new directory inside your home directory named after this class. Call it "mtec1003-lab-02".
+4. Create an empty file called copy_to_backup.sh. 
+Verify that the file exists.
 
-Write the command that you used to do this:
-----------
-mkdir mtec1003-lab-02
-
-
-==========
-
-==========
-1d. Change into your mtec1003-lab-02 directory.
-
-What command did you use?
+What commands did you use to do this?
 ----------
 
-cd mtec1003-lab-02
+touch copy_to_backup.sh
+ls -l
+
+ls copy* (* is a wildcard character that NARROWS the search space to all files beginning with copy)
+
+
+
 
 ==========
-2. Create a directory called my_files.
-Then, change into your new directory.
+5. What are the permissions on your copy_to_backup.sh.
 
-What two commands did you use?
+What command did you use to find the permissions?
 ----------
 
-mkdir my_files
-cd my_files
+ls -l
 
-
-==========
-3. Create a new file using touch:
-
-$ touch foo.txt
-$ ls
-
-Copy and paste the output below.
-----------
-foo.txt
-
-
-
-==========
-4. Create another new file called "bar.txt".
-
-What command did you use?
-----------
-touch
+total 0
+-rw-r--r--  1 louisgoldford  staff    0 Feb  7 16:31 copy_to_backup.sh
+drwxr-xr-x  4 louisgoldford  staff  128 Feb  7 16:01 my_files
 
 
 
 
 ==========
-5. Create a copy of bar.txt called baz.txt, and then list the files again.
+6. Change the permissions so that this file is executable by the user.
+Verify the new permissions.
 
-Write the commands that you used.
-Also, copy and paste the output of your file listing below.
-----------
-cp bar.txt baz.txt
-
-bar.txt  baz.txt  foo.txt
-
-
-
-
-
-
-
-
-==========
-6. Delete the file called bar.txt and then list the files again.
-
-Write the command that you used to remove the file.
-Copy and paste the output of your file listing below.
+What commands did you use to do this?  What was the output?
 ----------
 
-rm bar.txt
-baz.txt  foo.txt
+chmod u+x copy_to_backup.sh
+ls -l
 
+total 0
+-rwxr--r--  1 louisgoldford  staff    0 Feb  7 16:31 copy_to_backup.sh
+drwxr-xr-x  4 louisgoldford  staff  128 Feb  7 16:01 my_files
 
-
-
-
-
+This command chmod doesn't work on GitBash!! 
+FIX: In windows, once a .sh file has the shebang added, it becomes executable automatically!
 
 
 ==========
-7. Move the file called foo.txt to qux.txt and then list the files again.
+7. Try executing the file!
 
+$ ./copy_to_backup.sh
 
-Write the command that you used to move the file.
-Copy and paste the output of your file listing below.
+What command did you use to try to execute the file? What happens?
 ----------
 
-mv foo.txt qux.txt
-baz.txt  qux.txt
-
-
+./copy_to_backup.sh
+nothing happens!
 
 
 
 
 ==========
-8. Go up one directory so that you're back in ~/mtec1003-lab-02. What command did you use?
+8. Open the file with nano
+
+What command did you use to do this?
 ----------
 
-cd ../
 
-==========
-9. Try removing the directory called my_files using rmdir.
-
-Write out the command that you used and what happened.
-----------
-rmdir: failed to remove 'my_files': Directory not empty
-
-
-
+We did this together in VS Code! 
 
 
 
 ==========
-10. Try removing the directory called my_files using rm.
+9. In your file, write the commands to do the following
 
-Write out the command that you used and what happened.
-----------
-rm: cannot remove 'my_files': Is a directory
+a. create a directory called backup 
+b. copy all of the txt files in the current directory to the backup directory (use *.txt)
+c. print out "I'm done backing up"
 
+Don't forget the first line of your shell script! It should begin with #!/bin/bash)!
 
-
-
-==========
-11. First: MAKE SURE YOU'RE IN THE mtec1003-lab-02 directory!
-***If you accidentally delete your other files, you'll have to start over!!***
-
-Force the removal of the directory and its files using the -rf flag
-
-Use this command:
-
-$ rm -rf my_files
-(options r = recursive; f = skip confirmation)
+Write out the code you typed into your file below...
 ----------
 
-rm -rf my_files was able to successfully 
+#!/bin/bash
 
-lab.02.part2.working.with.files.txt  lab.02.part3.shell.scripting.txt
+mkdir backup
+cp -r -v *.txt backup
+# -r = recursive (go through all files and subfolders that are matched)
+# -v = verbose (print details for each file)
+echo "I'm done backing up!"
+
 
 ==========
+10. Create a directory in your home folder called test
+----------
 
-STOP HERE! NO MORE QUESTIONS AFTER QUESTION 11!
+mkdir test
 
 ==========
-Goodbye a ton of stuff that used to exist here...
-==========
+11. Go into that directory and create two empty files... 1.txt and 2.txt
 
-And that's it! Now, go on to LAB 2 / PART 3...
+What commands did you use to do this?
+----------
+cd test
+touch 1.txt 2.txt
+
+
+
+==========
+12. Move the script that you created into this directory.
+
+What commands did you use to do this?
+----------
+
+cd ~/Desktop/"My Classes"/mtec1003-lab-02/test
+mv copy_to_backup.sh /c/Users/Darks/test
+ls -l (to confirm)
+
+
+
+
+
+==========
+13. Run your script.
+
+What commands did you use to do this?
+----------
+
+./copy_to_backup.sh
+
+
+==========
+14. Verify that a backup folder was created in your test directory... with copies of the files present.
+
+What commands did you use to do this?  Show the output.
+----------
+ls (to verify folder)
+cd backup
+ls -l
+
+total 0
+-rw-r--r-- 1 Darks 197612 0 Feb  7 17:16 1.txt
+-rw-r--r-- 1 Darks 197612 0 Feb  7 17:16 2.txt
+
+
+==========
+15. To finish up, using your mouse or with Terminal commands, save this file and be sure it's inside your mtec1003-lab-02 folder. (If not, move it into this folder.)
+
+When finished, be sure to COMMIT your files to your GitHub repository for week 2 labs. Follow the instructions on the Course Website under Week #2...
 ----------
