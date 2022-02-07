@@ -168,7 +168,7 @@ $ rm -rf my_files
 (options r = recursive; f = skip confirmation)
 ----------
 
-rm -rf my_files was able to successfully 
+rm -rf my_files was able to successfully remove the my_files folder, without any confirmation or error.
 
 lab.02.part2.working.with.files.txt  lab.02.part3.shell.scripting.txt
 
